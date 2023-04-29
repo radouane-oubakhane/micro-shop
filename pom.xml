@@ -16,6 +16,7 @@
   <name>Archetype - micro-shop</name>
   <modules>
     <module>product-service</module>
+    <module>review-service</module>
   </modules>
 
   <properties>

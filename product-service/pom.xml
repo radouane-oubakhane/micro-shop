@@ -6,6 +6,7 @@
         <artifactId>micro-shop</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>product-service</artifactId>
     <name>Archetype - product-service</name>
 
