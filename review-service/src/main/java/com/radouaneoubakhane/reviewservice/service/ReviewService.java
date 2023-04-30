@@ -50,4 +50,44 @@ public class ReviewService {
                 .content(review.getContent())
                 .build();
     }
+
+    public ReviewResponse updateReview(String productId, Long reviewId, ReviewRequest reviewRequest) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewNotFoundException("Review not found"));
+
+        if (!review.getProductId().equals(productId))
+            throw new ReviewNotFoundException("Review not found for this product");
+
+        review.setAuthor(reviewRequest.getAuthor());
+        review.setSubject(reviewRequest.getSubject());
+        review.setContent(reviewRequest.getContent());
+
+        Review savedReview = reviewRepository.save(review);
+
+        log.info("Review {} is updated", savedReview.getId());
+
+        return mapToReviewResponse(savedReview);
+    }
+
+    public void deleteReview(String productId, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewNotFoundException("Review not found"));
+
+        if (!review.getProductId().equals(productId))
+            throw new ReviewNotFoundException("Review not found for this product");
+
+        reviewRepository.delete(review);
+
+        log.info("Review {} is deleted", review.getId());
+    }
+
+    public ReviewResponse getReviewById(String productId, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewNotFoundException("Review not found"));
+
+        if (!review.getProductId().equals(productId))
+            throw new ReviewNotFoundException("Review not found for this product");
+
+        return mapToReviewResponse(review);
+    }
 }

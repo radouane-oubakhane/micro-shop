@@ -86,4 +86,14 @@ public class RecommendationService {
 
         log.info("Recommendation {} is deleted", recommendationId);
     }
+
+    public RecommendationResponse getRecommendationById(String productId, Long recommendationId) {
+        Recommendation recommendation = recommendationRepository.findById(recommendationId)
+                .orElseThrow(() -> new RecommendationNotFoundException("Recommendation not found"));
+
+        if (!recommendation.getProductId().equals(productId))
+            throw new RecommendationNotFoundException("Recommendation not found for this product");
+
+        return mapToRecommendationResponse(recommendation);
+    }
 }

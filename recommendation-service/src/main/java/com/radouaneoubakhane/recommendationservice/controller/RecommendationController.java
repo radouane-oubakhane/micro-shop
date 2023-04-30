@@ -23,12 +23,18 @@ public class RecommendationController {
         return recommendationService.getRecommendationByProductId(productId);
     }
 
+
     @PostMapping("/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
     public RecommendationResponse createRecommendation(@PathVariable String productId, @RequestBody RecommendationRequest recommendationRequest) {
         return recommendationService.createRecommendation(productId, recommendationRequest);
     }
 
+    @GetMapping("/{productId}/{recommendationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public RecommendationResponse getRecommendationById(@PathVariable String productId, @PathVariable Long recommendationId) {
+        return recommendationService.getRecommendationById(productId, recommendationId);
+    }
 
     @PutMapping("/{productId}/{recommendationId}")
     @ResponseStatus(HttpStatus.OK)

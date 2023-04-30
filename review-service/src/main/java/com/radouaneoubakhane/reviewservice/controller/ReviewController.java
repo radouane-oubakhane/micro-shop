@@ -27,4 +27,22 @@ public class ReviewController {
     public ReviewResponse createReview(@PathVariable String productId, @RequestBody ReviewRequest reviewRequest) {
         return reviewService.createReview(productId, reviewRequest);
     }
+
+    @GetMapping("/{productId}/{reviewId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ReviewResponse getReviewById(@PathVariable String productId, @PathVariable Long reviewId) {
+        return reviewService.getReviewById(productId, reviewId);
+    }
+
+    @PutMapping("/{productId}/{reviewId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ReviewResponse updateReview(@PathVariable String productId, @PathVariable Long reviewId,@RequestBody ReviewRequest reviewRequest) {
+        return reviewService.updateReview(productId, reviewId, reviewRequest);
+    }
+
+    @DeleteMapping("/{productId}/{reviewId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReview(@PathVariable String productId , @PathVariable Long reviewId) {
+        reviewService.deleteReview(productId, reviewId);
+    }
 }
